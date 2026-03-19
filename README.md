@@ -15,16 +15,16 @@ Depedency requirements for this project:
 2. Highlight Path entry of User variables for <account name>
 3. Click the edit button
 4. Append the following paths:
-    1. C:\Program Files (x86)\GnuWin32\bin
-    2. C:\Users\<account_name>\Documents\git\vcpkg
+    1. `C:\Program Files (x86)\GnuWin32\bin`
+    2. `C:\Users\<account_name>\Documents\git\vcpkg`
 
 # Install vcpkg
 Look at this link to setup vcpkg: 
 [Tutorial: Install and use packages with CMake](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started?pivots=shell-powershell)
 
 ## Setup project
-In `CMakeUserPresets.json`, make sure that the VCPKG_ROOT variable has
-the correct path to the pcpkg git repository
+In `CMakeUserPresets.json`, make sure that the `VCPKG_ROOT` variable has
+the correct path to the vcpkg git repository
 ```
 "VCPKG_ROOT": "C:\\Users\\salsa\\Documents\\git\\vcpkg"
 ```
