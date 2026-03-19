@@ -15,8 +15,8 @@ Depedency requirements for this project:
 2. Highlight Path entry of User variables for <account name>
 3. Click the edit button
 4. Append the following paths:
-- C:\Program Files (x86)\GnuWin32\bin
-- C:\Users\<account_name>\Documents\git\vcpkg
+    1. C:\Program Files (x86)\GnuWin32\bin
+    2. C:\Users\<account_name>\Documents\git\vcpkg
 
 # Install vcpkg
 Look at this link to setup vcpkg: 
