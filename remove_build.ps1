@@ -1,0 +1,1 @@
+rm -Path build -Recurse -Force
