@@ -5,6 +5,7 @@
 #include <wx/wx.h>
 #include <wx/clipbrd.h>
 #include <map>
+#include <ctime>
 
 class MyApp : public wxApp
 {
@@ -149,6 +150,16 @@ std::map<std::string, std::vector<std::string>> read_csv_file() {
     return csv_data;
 }
 
+int get_random_number(int end) {
+    // Get a diffrent random number each time the program runs
+    srand(time(0));
+
+    // Generate a random number between 0 and end-1
+    int random_num = rand() % end;
+
+    return random_num;
+}
+
 MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition, fixed_size, frame_style){
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "Help string shown in status bar for this menu item");
@@ -249,6 +260,11 @@ void MyFrame::Generate(wxCommandEvent& event) {
     list_box->Append(item_10);
     list_box->Append(item_11);
     list_box->Append(item_12);
+
+    int end = csv_data["Name"].size();
+    int random_num = get_random_number(end);
+
+    wxLogMessage(csv_data["Name"][random_num]);
 }
 
 void MyFrame::CopyToClipboard(wxCommandEvent& event) {
