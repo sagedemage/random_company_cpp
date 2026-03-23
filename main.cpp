@@ -58,14 +58,29 @@ long frame_style = (wxSYSTEM_MENU | \
     wxCLIP_CHILDREN);
 
 std::vector<std::string> split(std::string s, char delimiter) {
+    // String split implementation
     std::vector<std::string> array;
     std::stringstream ss(s);
     std::string tmp;
 
-    while(std::getline(ss, tmp, delimiter)) {
-        tmp.erase(tmp.begin());
-        tmp.erase(tmp.end()-1);
-        array.push_back(tmp);
+    for (int i = 1; i < s.length(); i++) {
+        char left_side = '"';
+        char right_side = '"';
+        if (s[i] == delimiter && s[i-1] == left_side && s[i+1] == right_side) {
+            tmp.erase(tmp.begin());
+            tmp.erase(tmp.end()-1);
+            array.push_back(tmp);
+            tmp = "";
+
+        } else {
+            tmp += s[i];
+        }
+
+        if (i == s.length()-1) {
+            tmp.erase(tmp.begin());
+            tmp.erase(tmp.end()-1);
+            array.push_back(tmp);
+        }
     }
 
     return array;
