@@ -1,8 +1,10 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <stdio.h>
 #include <wx/wx.h>
 #include <wx/clipbrd.h>
+#include <map>
 
 class MyApp : public wxApp
 {
@@ -20,6 +22,7 @@ public:
     wxBoxSizer *box_sizer;
     wxStaticText *label;
     wxListBox *list_box;
+    std::map<std::string, std::vector<std::string>> csv_data;
     
 private:
     void OnHello(wxCommandEvent& event);
@@ -54,6 +57,84 @@ long frame_style = (wxSYSTEM_MENU | \
     wxCAPTION | \
     wxCLIP_CHILDREN);
 
+std::vector<std::string> split(std::string s, char delimiter) {
+    std::vector<std::string> array;
+    std::stringstream ss(s);
+    std::string tmp;
+
+    while(std::getline(ss, tmp, delimiter)) {
+        tmp.erase(tmp.begin());
+        tmp.erase(tmp.end()-1);
+        array.push_back(tmp);
+    }
+
+    return array;
+}
+
+std::string format_array_to_string(std::vector<std::string> array) {
+    std::string s = "";
+
+    for (auto i: array) {
+        s += i + " ";
+    }
+    return s;
+}
+
+long get_file_size(std::string read_file_path) {
+    std::ifstream read_file(read_file_path);
+    read_file.seekg(0, std::ios::end);
+    long file_size = read_file.tellg();
+
+    read_file.seekg(0, std::ios::beg);
+    return file_size;
+}
+
+std::map<std::string, std::vector<std::string>> read_csv_file() {
+    std::string text;
+    std::string read_file_path = "original_data/largest_companies_by_market_cap.csv";
+    std::ifstream read_file(read_file_path);
+
+    if (!read_file.is_open()) {
+        std::exit(-1);
+    }
+
+    long file_size = get_file_size(read_file_path);
+
+    char delimiter = ',';
+
+    std::map<std::string, std::vector<std::string>> csv_data;
+    std::vector<std::string> keys;
+
+    int i = 0;
+    while (std::getline(read_file, text)) {
+        std::vector<std::string> array = split(text, delimiter);
+
+        std::string s = format_array_to_string(array);
+
+        if (i == 0) {
+            keys = array;
+            for (int j = 0; j < keys.size(); j++) {
+                std::vector<std::string> tmp;
+                std::string key = keys[j];
+                csv_data[key] = tmp;
+            }
+        } else {
+            for (int j = 0; j < keys.size(); j++) {
+                // issue
+                std::string key = keys[j];
+                std::string item = array[j];
+                csv_data[key].push_back(item);
+            }
+        }
+
+        i += 1;
+    }
+
+    read_file.close();
+
+    return csv_data;
+}
+
 MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition, fixed_size, frame_style){
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "Help string shown in status bar for this menu item");
@@ -75,33 +156,8 @@ MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition
 
     label = new wxStaticText(panel, STATIC_TEXT_Label, _T("Random Companies:"), wxDefaultPosition, wxDefaultSize, 0);
 
-    list_box = new wxListBox(panel, LIST_BOX_Companies, wxDefaultPosition, wxDefaultSize, 0);
-
-    wxString item_1("Word1");
-    wxString item_2("Word2");
-    wxString item_3("Word3");
-    wxString item_4("Word4");
-    wxString item_5("Word5");
-    wxString item_6("Word6");
-    wxString item_7("Word7");
-    wxString item_8("Word8");
-    wxString item_9("Word9");
-    wxString item_10("Word10");
-    wxString item_11("Word11");
-    wxString item_12("Word12");
-
-    list_box->Append(item_1);
-    list_box->Append(item_2);
-    list_box->Append(item_3);
-    list_box->Append(item_4);
-    list_box->Append(item_5);
-    list_box->Append(item_6);
-    list_box->Append(item_7);
-    list_box->Append(item_8);
-    list_box->Append(item_9);
-    list_box->Append(item_10);
-    list_box->Append(item_11);
-    list_box->Append(item_12);
+    wxSize list_box_size(100, 150);
+    list_box = new wxListBox(panel, LIST_BOX_Companies, wxDefaultPosition, list_box_size, 0);
 
     generate_button = new wxButton(panel, BUTTON_Generate, _T("Generate"), wxDefaultPosition, wxDefaultSize, 0);
 
@@ -122,6 +178,8 @@ MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition
     Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_BUTTON, &MyFrame::Generate, this, BUTTON_Generate);
     Bind(wxEVT_BUTTON, &MyFrame::CopyToClipboard, this, BUTTON_Copy_Clipboard);
+
+    csv_data = read_csv_file();
 }
 
 void MyFrame::OnExit(wxCommandEvent& event) {
@@ -137,7 +195,46 @@ void MyFrame::OnHello(wxCommandEvent& event) {
 }
 
 void MyFrame::Generate(wxCommandEvent& event) {
-    wxLogMessage("Generate");
+    std::string name_1 = csv_data["Name"][0];
+    std::string name_2 = csv_data["Name"][1];
+    std::string name_3 = csv_data["Name"][2];
+    std::string name_4 = csv_data["Name"][3];
+    std::string name_5 = csv_data["Name"][4];
+    std::string name_6 = csv_data["Name"][5];
+    std::string name_7 = csv_data["Name"][6];
+    std::string name_8 = csv_data["Name"][7];
+    std::string name_9 = csv_data["Name"][8];
+    std::string name_10 = csv_data["Name"][9];
+    std::string name_11 = csv_data["Name"][10];
+    std::string name_12 = csv_data["Name"][11];
+
+    wxString item_1(name_1.c_str());
+    wxString item_2(name_2.c_str());
+    wxString item_3(name_3.c_str());
+    wxString item_4(name_4.c_str());
+    wxString item_5(name_5.c_str());
+    wxString item_6(name_6.c_str());
+    wxString item_7(name_7.c_str());
+    wxString item_8(name_8.c_str());
+    wxString item_9(name_9.c_str());
+    wxString item_10(name_10.c_str());
+    wxString item_11(name_11.c_str());
+    wxString item_12(name_12.c_str());
+
+    list_box->Clear();
+
+    list_box->Append(item_1);
+    list_box->Append(item_2);
+    list_box->Append(item_3);
+    list_box->Append(item_4);
+    list_box->Append(item_5);
+    list_box->Append(item_6);
+    list_box->Append(item_7);
+    list_box->Append(item_8);
+    list_box->Append(item_9);
+    list_box->Append(item_10);
+    list_box->Append(item_11);
+    list_box->Append(item_12);
 }
 
 void MyFrame::CopyToClipboard(wxCommandEvent& event) {

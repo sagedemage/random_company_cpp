@@ -9,6 +9,8 @@ if(wxWidgets_USE_FILE)
     include(${wxWidgets_USE_FILE})
 endif()
 
+file(COPY original_data DESTINATION ${CMAKE_BINARY_DIR})
+
 add_executable(${PROJECT_NAME} WIN32 main.cpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${wxWidgets_LIBRARIES})
