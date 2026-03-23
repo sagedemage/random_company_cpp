@@ -5,7 +5,8 @@
 #include <wx/wx.h>
 #include <wx/clipbrd.h>
 #include <map>
-#include <ctime>
+#include <algorithm>
+#include <random>
 
 class MyApp : public wxApp
 {
@@ -150,14 +151,23 @@ std::map<std::string, std::vector<std::string>> read_csv_file() {
     return csv_data;
 }
 
-int get_random_number(int end) {
-    // Get a diffrent random number each time the program runs
-    srand(time(0));
-
-    // Generate a random number between 0 and end-1
-    int random_num = rand() % end;
+int get_random_number(int start, int end) {
+    // Truly random seed
+    std::mt19937 rng(std::random_device{}());
+    std::uniform_int_distribution<uint32_t> distribution(start, end);
+    int random_num = distribution(rng);
 
     return random_num;
+}
+
+bool item_in_array(int item, std::vector<int> array) {
+    auto vec_it = std::find(array.begin(), array.end(), item);
+
+    if (vec_it == array.end()) {
+        return false;
+    }
+
+    return true;
 }
 
 MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition, fixed_size, frame_style){
@@ -220,51 +230,35 @@ void MyFrame::OnHello(wxCommandEvent& event) {
 }
 
 void MyFrame::Generate(wxCommandEvent& event) {
-    std::string name_1 = csv_data["Name"][0];
-    std::string name_2 = csv_data["Name"][1];
-    std::string name_3 = csv_data["Name"][2];
-    std::string name_4 = csv_data["Name"][3];
-    std::string name_5 = csv_data["Name"][4];
-    std::string name_6 = csv_data["Name"][5];
-    std::string name_7 = csv_data["Name"][6];
-    std::string name_8 = csv_data["Name"][7];
-    std::string name_9 = csv_data["Name"][8];
-    std::string name_10 = csv_data["Name"][9];
-    std::string name_11 = csv_data["Name"][10];
-    std::string name_12 = csv_data["Name"][11];
-
-    wxString item_1(name_1.c_str());
-    wxString item_2(name_2.c_str());
-    wxString item_3(name_3.c_str());
-    wxString item_4(name_4.c_str());
-    wxString item_5(name_5.c_str());
-    wxString item_6(name_6.c_str());
-    wxString item_7(name_7.c_str());
-    wxString item_8(name_8.c_str());
-    wxString item_9(name_9.c_str());
-    wxString item_10(name_10.c_str());
-    wxString item_11(name_11.c_str());
-    wxString item_12(name_12.c_str());
-
     list_box->Clear();
 
-    list_box->Append(item_1);
-    list_box->Append(item_2);
-    list_box->Append(item_3);
-    list_box->Append(item_4);
-    list_box->Append(item_5);
-    list_box->Append(item_6);
-    list_box->Append(item_7);
-    list_box->Append(item_8);
-    list_box->Append(item_9);
-    list_box->Append(item_10);
-    list_box->Append(item_11);
-    list_box->Append(item_12);
-
     int end = csv_data["Name"].size();
-    int random_num = get_random_number(end);
 
-    wxLogMessage(csv_data["Name"][random_num]);
+    std::vector<int> random_nums = {};
+
+    int i = 0;
+    while (true) {
+        if (i == 12) {
+            break;
+        }
+        int random_num = get_random_number(0, end);
+
+        bool result = item_in_array(random_num, random_nums);
+
+        if (result == false) {
+            random_nums.push_back(random_num);
+        } else {
+            continue;
+        }
+
+        i = i + 1;
+    }
+
+    for (int random_num : random_nums) {
+        std::string name = csv_data["Name"][random_num];
+        wxString item(name.c_str());
+        list_box->Append(item);
+    }
 }
 
 void MyFrame::CopyToClipboard(wxCommandEvent& event) {
