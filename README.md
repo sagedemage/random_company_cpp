@@ -2,6 +2,8 @@
 
 GUI program to pick a random company in C++
 
+![GUI Program](./screenshots/gui_program.PNG)
+
 ## Depedency requirements
 Depedency requirements for this project:
 - LLVM: https://releases.llvm.org/
