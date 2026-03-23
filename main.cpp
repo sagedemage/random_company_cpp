@@ -60,7 +60,6 @@ long frame_style = (wxSYSTEM_MENU | \
 std::vector<std::string> split(std::string s, char delimiter) {
     // String split implementation
     std::vector<std::string> array;
-    std::stringstream ss(s);
     std::string tmp;
 
     for (int i = 1; i < s.length(); i++) {
