@@ -170,6 +170,12 @@ bool item_in_array(int item, std::vector<int> array) {
 }
 
 MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition, fixed_size, frame_style){
+    wxFont font = wxFont();
+    font.SetFamily(wxFONTFAMILY_SWISS);
+    double point_size = 12.0;
+    font.SetFractionalPointSize(point_size);
+    font.SetStyle(wxFONTSTYLE_NORMAL);
+
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "Help string shown in status bar for this menu item");
     menuFile->AppendSeparator();
@@ -185,6 +191,8 @@ MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition
     SetMenuBar(menuBar);
 
     panel = new wxPanel(this, wxID_ANY);
+
+    panel->SetFont(font);
 
     box_sizer = new wxBoxSizer(wxVERTICAL);
 
