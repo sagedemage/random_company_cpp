@@ -198,7 +198,7 @@ MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition
 
     label = new wxStaticText(panel, STATIC_TEXT_Label, _T("Random Companies:"), wxDefaultPosition, wxDefaultSize, 0);
 
-    int list_box_width = 220;
+    int list_box_width = 300;
     int list_box_height = 225;
     wxSize list_box_size(list_box_width, list_box_height);
     list_box = new wxListBox(panel, LIST_BOX_Companies, wxDefaultPosition, list_box_size, 0);
