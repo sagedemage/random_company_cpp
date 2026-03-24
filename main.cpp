@@ -158,7 +158,7 @@ bool item_in_array(int item, std::vector<int> array) {
     return true;
 }
 
-MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition, window_size, frame_style){
+MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Random Company", wxDefaultPosition, window_size, frame_style){
     wxFont font = wxFont();
     font.SetFamily(wxFONTFAMILY_SWISS);
     double point_size = 12.0;
