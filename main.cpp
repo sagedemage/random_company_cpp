@@ -96,15 +96,6 @@ std::string format_array_to_string(std::vector<std::string> array) {
     return s;
 }
 
-long get_file_size(std::string read_file_path) {
-    std::ifstream read_file(read_file_path);
-    read_file.seekg(0, std::ios::end);
-    long file_size = read_file.tellg();
-
-    read_file.seekg(0, std::ios::beg);
-    return file_size;
-}
-
 std::map<std::string, std::vector<std::string>> read_csv_file() {
     std::string text;
     std::string read_file_path = "original_data/largest_companies_by_market_cap.csv";
@@ -113,8 +104,6 @@ std::map<std::string, std::vector<std::string>> read_csv_file() {
     if (!read_file.is_open()) {
         std::exit(-1);
     }
-
-    long file_size = get_file_size(read_file_path);
 
     char delimiter = ',';
 
