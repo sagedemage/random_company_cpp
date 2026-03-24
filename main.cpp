@@ -64,7 +64,7 @@ std::vector<std::string> split(std::string s, char delimiter) {
     std::vector<std::string> array;
     std::string tmp;
 
-    for (int i = 1; i < s.length(); i++) {
+    for (int i = 0; i < s.length(); i++) {
         char left_side = '"';
         char right_side = '"';
         if (s[i] == delimiter && s[i-1] == left_side && s[i+1] == right_side) {
@@ -91,7 +91,7 @@ std::string format_array_to_string(std::vector<std::string> array) {
     std::string s = "";
 
     for (auto i: array) {
-        s += i + " ";
+        s += i + ",";
     }
     return s;
 }
@@ -136,7 +136,6 @@ std::map<std::string, std::vector<std::string>> read_csv_file() {
             }
         } else {
             for (int j = 0; j < keys.size(); j++) {
-                // issue
                 std::string key = keys[j];
                 std::string item = array[j];
                 csv_data[key].push_back(item);
