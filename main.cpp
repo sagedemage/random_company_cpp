@@ -50,7 +50,7 @@ enum {
 
 int window_width = 345;
 int window_height = 385;
-wxSize fixed_size(window_width, window_height);
+wxSize window_size(window_width, window_height);
 
 long frame_style = (wxSYSTEM_MENU | \
     wxMINIMIZE_BOX | \
@@ -169,7 +169,7 @@ bool item_in_array(int item, std::vector<int> array) {
     return true;
 }
 
-MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition, fixed_size, frame_style){
+MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition, window_size, frame_style){
     wxFont font = wxFont();
     font.SetFamily(wxFONTFAMILY_SWISS);
     double point_size = 12.0;
