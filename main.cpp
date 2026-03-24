@@ -49,7 +49,7 @@ enum {
 };
 
 int window_width = 345;
-int window_height = 385;
+int window_height = 405;
 wxSize window_size(window_width, window_height);
 
 wxString window_title = "Random Company";
@@ -194,9 +194,16 @@ MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, window_title, wxDefaultPosition,
     wxSize list_box_size(list_box_width, list_box_height);
     list_box = new wxListBox(panel, LIST_BOX_Companies, wxDefaultPosition, list_box_size, 0);
 
-    generate_button = new wxButton(panel, BUTTON_Generate, _T("Generate"), wxDefaultPosition, wxDefaultSize, 0);
+    int button_width = 100;
+    int button_height = 38;
+    wxSize button_size(button_width, button_height);
+    generate_button = new wxButton(panel, BUTTON_Generate, _T("Generate"), wxDefaultPosition, button_size, 0);
 
-    copy_clipboard_button = new wxButton(panel, BUTTON_Copy_Clipboard, _T("Copy to Clipboard"), wxDefaultPosition, wxDefaultSize, 0);
+    button_width = 140;
+    button_height = 38;
+    button_size.SetWidth(button_width);
+    button_size.SetHeight(button_height);
+    copy_clipboard_button = new wxButton(panel, BUTTON_Copy_Clipboard, _T("Copy to Clipboard"), wxDefaultPosition, button_size, 0);
 
     box_sizer->Add(label, 0, wxALIGN_CENTER_HORIZONTAL, 10);
     box_sizer->Add(list_box, 0, wxALIGN_CENTER_HORIZONTAL, 10);
