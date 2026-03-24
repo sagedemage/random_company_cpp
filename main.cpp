@@ -48,9 +48,9 @@ enum {
     LIST_BOX_Companies = 3
 };
 
-int width = 400;
-int height = 300;
-wxSize fixed_size(width, height);
+int window_width = 325;
+int window_height = 340;
+wxSize fixed_size(window_width, window_height);
 
 long frame_style = (wxSYSTEM_MENU | \
     wxMINIMIZE_BOX | \
@@ -190,7 +190,9 @@ MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Hello World", wxDefaultPosition
 
     label = new wxStaticText(panel, STATIC_TEXT_Label, _T("Random Companies:"), wxDefaultPosition, wxDefaultSize, 0);
 
-    wxSize list_box_size(100, 150);
+    int list_box_width = 200;
+    int list_box_height = 185;
+    wxSize list_box_size(list_box_width, list_box_height);
     list_box = new wxListBox(panel, LIST_BOX_Companies, wxDefaultPosition, list_box_size, 0);
 
     generate_button = new wxButton(panel, BUTTON_Generate, _T("Generate"), wxDefaultPosition, wxDefaultSize, 0);
