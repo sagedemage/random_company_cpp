@@ -10,6 +10,7 @@ if(wxWidgets_USE_FILE)
 endif()
 
 file(COPY original_data DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY images DESTINATION ${CMAKE_BINARY_DIR})
 
 add_executable(${PROJECT_NAME} WIN32 main.cpp)
 

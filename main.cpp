@@ -215,6 +215,9 @@ MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, window_title, wxDefaultPosition,
     CreateStatusBar();
     SetStatusText(wxT("A program to get random companies."), 0);
 
+    wxIcon icon("images/logo.ico", wxBITMAP_TYPE_ICO);
+    this->SetIcon(icon);
+
     Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello);
     Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
