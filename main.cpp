@@ -10,7 +10,7 @@
 
 class MyApp : public wxApp
 {
-public: 
+public:
     bool OnInit() override;
 };
 
@@ -35,6 +35,7 @@ private:
 };
 
 bool MyApp::OnInit() {
+    SetAppearance(Appearance::System);
     MyFrame *frame = new MyFrame();
     frame->Show(true);
     return true;
