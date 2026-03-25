@@ -213,7 +213,7 @@ MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, window_title, wxDefaultPosition,
     panel->SetSizer(box_sizer);
 
     CreateStatusBar();
-    SetStatusText("Welcome to wxWidgets!");
+    SetStatusText(wxT("A program to get random companies."), 0);
 
     Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello);
     Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
